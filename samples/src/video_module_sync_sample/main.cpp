@@ -121,7 +121,7 @@ int main (int argc, char* argv[])
             device->get_stream_mode(librealsense_stream, j, width, height, format, frame_rate);
             bool is_acceptable_stream_mode = (width == supported_stream_config.size.width &&
                                               height == supported_stream_config.size.height &&
-                                              frame_rate == supported_stream_config.frame_rate);
+                                              static_cast<float>(frame_rate) == supported_stream_config.frame_rate);
             if(is_acceptable_stream_mode)
             {
                 device->enable_stream(librealsense_stream, width, height, format, frame_rate);

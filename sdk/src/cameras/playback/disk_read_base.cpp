@@ -329,7 +329,7 @@ bool disk_read_base::read_next_sample()
     if(all_samples_bufferd() && m_realtime)
     {
         int64_t time_to_next_sample;
-        while((time_to_next_sample  = calc_sleep_time(m_prefetched_samples.front())) > 1e3)
+        while((time_to_next_sample  = calc_sleep_time(m_prefetched_samples.front())) > 1000)
         {
             if(m_is_index_complete)
                 std::this_thread::sleep_for(std::chrono::microseconds(time_to_next_sample));
@@ -413,7 +413,7 @@ std::map<rs_stream, std::shared_ptr<rs::core::file_types::frame_sample>> disk_re
             std::lock_guard<std::mutex> guard(m_mutex);
             if(m_samples_desc[index]->info.type != file_types::sample_type::st_image)continue;
             auto frame = std::dynamic_pointer_cast<file_types::frame_sample>(m_samples_desc[index]);
-            if(frame->finfo.time_stamp >= ts)
+            if(frame->finfo.time_stamp >= (double)ts)
             {
                 stream = frame->finfo.stream;
                 break;
@@ -536,7 +536,7 @@ int64_t disk_read_base::calc_sleep_time(std::shared_ptr<file_types::sample> samp
     auto time_stamp = sample->info.capture_time;
     //number of miliseconds to wait - the diff in milisecond between the last call for streaming resume
     //and the recorded time.
-    int wait_for = static_cast<int>(time_stamp - m_base_ts - time_span);
+    int64_t wait_for = static_cast<int>(time_stamp - m_base_ts - time_span);
     LOG_VERBOSE("sleep length " << wait_for << " miliseconds");
     LOG_VERBOSE("total run time - " << time_span);
     return wait_for;

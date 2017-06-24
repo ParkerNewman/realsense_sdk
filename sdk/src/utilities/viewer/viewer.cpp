@@ -306,9 +306,9 @@ namespace rs
             auto y = (float)streams / x;
             x = round(x);
             y = round(y);
-            if(x*y > streams)
+            if(x*y > (float)streams)
                 y > x ? y-- : x--;
-            if(x*y < streams)
+            if(x*y < (float)streams)
                 y > x ? x++ : y++;
             return x == 0 || y == 0 ? int_pair(1,1) : int_pair(x,y);
         }

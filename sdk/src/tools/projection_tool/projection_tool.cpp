@@ -569,7 +569,8 @@ std::vector<pointF32> handle_uvmap(const bool is_uvmap_queried, const float max_
             // i, j - indexes of mapped color pixel
             const float i = (float)uvmap[u+v*depth_width].x*(float)color_width;
             const float j = (float)uvmap[u+v*depth_width].y*(float)color_height;
-            if (i < 0) continue; if (j < 0) continue; // skip invalid pixel coordinates
+            if (i < 0 || j < 0) continue; // skip invalid pixel coordinates
+
             const uint16_t depth_value = ((uint16_t*)depth_data)[int(u)+int(v)*depth_width];
             // check the depth value
             // draw each point for which the corresponding depth value is in specified depth range
@@ -614,7 +615,7 @@ std::vector<pointF32> handle_invuvmap(const bool is_invuvmap_queried, const floa
             // u, v - indexes of mapped depth pixel
             const float u = (float)invuvmap[i+j*color_width].x*(float)depth_width;
             const float v = (float)invuvmap[i+j*color_width].y*(float)depth_height;
-            if(u < 0) continue; if(v < 0) continue; // skip invalid pixel coordinates
+            if(u < 0 || v < 0) continue; // skip invalid pixel coordinates
             const uint16_t depth_value = ((uint16_t*)depth_data)[int(u)+int(v)*depth_width];
             // check the depth value
             // draw each point for which the corresponding depth value is in specified depth range

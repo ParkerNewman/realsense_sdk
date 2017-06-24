@@ -414,7 +414,8 @@ namespace rs
                 {
                     int i = static_cast<int>(uvmap[u+v*depth_info.width].x*(float)m_color_size.width);
                     int j = static_cast<int>(uvmap[u+v*depth_info.width].y*(float)m_color_size.height);
-                    if(i < 0) continue; if(j < 0) continue; // skip invalid pixel coordinates
+                    if(i < 0 || j < 0) continue;  // skip invalid pixel coordinates
+
                     m_sparse_invuvmap[i+j*m_color_size.width].x = u;
                     m_sparse_invuvmap[i+j*m_color_size.width].y = v;
                 }

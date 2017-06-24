@@ -51,7 +51,7 @@ namespace rs
                     m_device->get_stream_mode(librealsense_stream, mode_index, width, height, librealsense_format, frame_rate);
                     if((stream_config.size.width == width) &&
                        (stream_config.size.height == height) &&
-                       (stream_config.frame_rate == frame_rate))
+                       (stream_config.frame_rate == static_cast<float>(frame_rate)))
                     {
                         //TODO : enable native output buffer for performance
                         m_device->enable_stream(librealsense_stream,width, height, librealsense_format,frame_rate/*, output_buffer_format::native*/);

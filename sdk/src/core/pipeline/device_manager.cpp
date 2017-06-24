@@ -134,7 +134,7 @@ namespace rs
                        (given_config.image_streams_configs[stream_index].size.height == 0 ||
                         given_config.image_streams_configs[stream_index].size.height == height) &&
                        (given_config.image_streams_configs[stream_index].frame_rate == 0 ||
-                        given_config.image_streams_configs[stream_index].frame_rate == frame_rate))
+                        given_config.image_streams_configs[stream_index].frame_rate == static_cast<float>(frame_rate)))
                     {
                         is_current_required_stream_satisfied = true;
 
